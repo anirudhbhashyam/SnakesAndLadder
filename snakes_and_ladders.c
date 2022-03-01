@@ -51,6 +51,7 @@ void play()
 	free(b);
 	free(e);
 
+
 	return;
 }
 
@@ -58,6 +59,7 @@ u_int8_t game_ended_q(struct Board* b, struct Player* p)
 {
 	if (p->position == b->board[BOARD_SIZE - 1])
 	{
+		printf("Won!\n");
 		return 1;
 	}
 	return 0;
@@ -81,7 +83,7 @@ void move(uint16_t rolled, struct Player* p, struct Entity* e)
 		{
 			if (p->position == (e + i)->top)
 			{
-				printf("Encountered snake.\n");
+				printf("Encountered snake at position %d.\n", p->position);
 				p->position = (e + i)->bottom;
 			}
 		}
@@ -90,7 +92,7 @@ void move(uint16_t rolled, struct Player* p, struct Entity* e)
 		{
 			if (p->position == (e + i)->bottom)
 			{
-				printf("Encountered ladder.\n");
+				printf("Encountered ladder at position %d.\n", p->position);
 				p->position = (e + i)->top;
 			}
 		}
