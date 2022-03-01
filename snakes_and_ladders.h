@@ -1,5 +1,5 @@
-#ifndef SNAKES_AND_LADDER_H
-#define SNAKES_AND_LADDER_H
+#ifndef SNAKES_AND_LADDERS_H
+#define SNAKES_AND_LADDERS_H
 
 #include <stdint.h>
 
@@ -35,4 +35,4 @@ void init_board(struct Board*);
 void init_player(struct Board*, struct Player*);
 struct Entity* generate_entities();
 
-#endif /* SNAKES_AND_LADDER_H */
+#endif /* SNAKES_AND_LADDERS_H */
