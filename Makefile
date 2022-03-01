@@ -13,6 +13,6 @@ app:
 	$(CC) $(OBJECTS) -o app
 
 clean:
-	rm -rf snl main app 
+	rm -rf $(OBJECTS) app 
 
 
