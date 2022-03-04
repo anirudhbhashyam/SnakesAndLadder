@@ -17,6 +17,7 @@ void play()
 	if (state->start_game_q == 'n' || state->start_game_q == 'N')
 	{
 		printf("Exited game.\n");
+		free(state);
 		return;
 	}
 		
@@ -40,7 +41,6 @@ void play()
 		{
 			printf("Do you want to roll the dice, player %u? (y/n): ", (i + 1));
 			scanf(" %c", &(state->roll_dice_q));
-			// printf("\nInput dice roll_dice_q: %c", state->roll_dice_q);
 
 			if (state->roll_dice_q == 'n' || state->roll_dice_q == 'N')
 			{
