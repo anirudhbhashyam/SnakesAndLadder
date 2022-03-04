@@ -35,11 +35,12 @@ void play()
 
 	while (!game_ended_q(state, b, p))
 	{
-		printf("Round %u\n", (state->round + 1));
+		printf("* -- Round %u -- *\n", (state->round + 1));
 		for (i = 0; i < state->n_players; i++)
 		{
 			printf("Do you want to roll the dice, player %u? (y/n): ", (i + 1));
-			scanf("%c\n", &(state->roll_dice_q));
+			scanf(" %c", &(state->roll_dice_q));
+			// printf("\nInput dice roll_dice_q: %c", state->roll_dice_q);
 
 			if (state->roll_dice_q == 'n' || state->roll_dice_q == 'N')
 			{
@@ -54,7 +55,7 @@ void play()
 			move(die_number, p, e);
 			printf("Player %d Moved to %u.\n", (i + 1), (p + i)->position);
 		}
-		printf("---------------------------------");
+		printf("---------------------------------------------");
 		printf("\n\n");
 		state->round++;
 	}

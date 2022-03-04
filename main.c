@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "snakes_and_ladders.h"
 
 int main()
