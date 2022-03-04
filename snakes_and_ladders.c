@@ -7,60 +7,72 @@
 
 void play()
 {
+	uint16_t i;
 	printf("Welcome to snakes and ladders!\n");
-	char start_game_q;
 	printf("Do you want to start the game? (y/n): ");
-	scanf("%c", &start_game_q);
 
-	if (start_game_q == 'n')
+	struct GameStateVariables* state = malloc(sizeof(struct GameStateVariables));
+	scanf("%c", &(state->start_game_q));
+
+	if (state->start_game_q == 'n' || state->start_game_q == 'N')
 	{
 		printf("Exited game.\n");
 		return;
 	}
+		
+	printf("Number of players: ");
+	scanf("%hu", &state->n_players);
 
-	struct Player* p = malloc(sizeof(struct Player));
+	struct Player* p = malloc(sizeof(struct Player) * state->n_players);
 	struct Board* b = malloc(sizeof(struct Board));
 	struct Entity* e = generate_entities();
 
 	init_board(b);
-	init_player(b, p);
+	init_player(state, b, p);
 
-	printf("Setup complete.\n\n");
-	printf("Starting game...\n");
+	printf("Setup complete.");
+	printf("Starting game...\n\n");
 
-	while (!game_ended_q(b, p))
+	while (!game_ended_q(state, b, p))
 	{
-		char roll_dice_q;
-		printf("Do you want to roll the dice? (y/n): ");
-		scanf("%c\n", &roll_dice_q);
-
-		if (roll_dice_q == 'n')
+		printf("Round %u\n", (state->round + 1));
+		for (i = 0; i < state->n_players; i++)
 		{
-			printf("Game ended.");
-			break;
-		}
+			printf("Do you want to roll the dice, player %u? (y/n): ", (i + 1));
+			scanf("%c\n", &(state->roll_dice_q));
 
-		printf("Rolling dice...\n");
-		uint16_t die_number = roll_dice();
-		printf("Rolled: %d\n", die_number);
-		move(die_number, p, e);
-		printf("Moved to %d.\n\n", p->position);
+			if (state->roll_dice_q == 'n' || state->roll_dice_q == 'N')
+			{
+				printf("Game ended.");
+				clear_game(state, p, b, e);
+				return;
+			}
+
+			printf("Rolling dice...\n");
+			uint16_t die_number = roll_dice();
+			printf("Player %d rolled: %hu\n", (i + 1), die_number);
+			move(die_number, p, e);
+			printf("Player %d Moved to %u.\n", (i + 1), (p + i)->position);
+		}
+		printf("---------------------------------");
+		printf("\n\n");
+		state->round++;
 	}
 
-	free(p);
-	free(b);
-	free(e);
-
-
+	clear_game(state, p, b, e);
 	return;
 }
 
-u_int8_t game_ended_q(struct Board* b, struct Player* p)
+u_int8_t game_ended_q(struct GameStateVariables* state, struct Board* b, struct Player* p)
 {
-	if (p->position == b->board[BOARD_SIZE - 1])
+	uint16_t i;
+	for (i = 0; i < state->n_players; i++)
 	{
-		printf("Won!\n");
-		return 1;
+		if ((p + i)->position == b->board[BOARD_SIZE - 1])
+		{
+			printf("Player %u won!\n", (i + 1));
+			return 1;
+		}
 	}
 	return 0;
 }
@@ -108,9 +120,13 @@ void init_board(struct Board* b)
 	}
 }
 
-void init_player(struct Board* b, struct Player* p)
+void init_player(struct GameStateVariables* state, struct Board* b, struct Player* p)
 {
-	p->position = b->board[0];
+	uint16_t i;
+	for (i = 0; i < state->n_players; i++)
+	{
+		(p + i)->position = b->board[0];
+	}
 }
 
 struct Entity* generate_entities()
@@ -151,6 +167,15 @@ u_int8_t exists_val_q(const int val, int* arr, const size_t size)
 		}    
     }
     return 0;
+}
+
+void clear_game(struct GameStateVariables* state, struct Player* p, struct Board* b, struct Entity* e)
+{
+	free(state);
+	free(p);
+	free(b);
+	free(e);
+	return;
 }
 
 

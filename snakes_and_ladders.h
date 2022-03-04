@@ -27,12 +27,21 @@ struct Entity
 	uint32_t top;
 };
 
+struct GameStateVariables
+{
+	uint32_t round;
+	uint16_t n_players;
+	uint8_t start_game_q;
+	uint8_t roll_dice_q;
+};
+
 void play();
-u_int8_t game_ended_q(struct Board*, struct Player*);
+u_int8_t game_ended_q(struct GameStateVariables*, struct Board*, struct Player*);
 uint16_t roll_dice();
 void move(uint16_t rolled, struct Player*, struct Entity*);
 void init_board(struct Board*);
-void init_player(struct Board*, struct Player*);
+void init_player(struct GameStateVariables*, struct Board*, struct Player*);
 struct Entity* generate_entities();
+void clear_game(struct GameStateVariables*, struct Player*, struct Board*, struct Entity*);
 
 #endif /* SNAKES_AND_LADDERS_H */
