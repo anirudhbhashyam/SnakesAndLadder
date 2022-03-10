@@ -87,7 +87,7 @@ void move(uint16_t rolled, struct Player* p, struct Entity* e)
 	p->position += rolled;
 
 	// Check if new position coincides with entity position.
-	u_int16_t i;
+	uint16_t i;
 	for (i = 0; i < N_ENTITIES; i++)
 	{
 		// Snake.
@@ -113,7 +113,7 @@ void move(uint16_t rolled, struct Player* p, struct Entity* e)
 
 void init_board(struct Board* b)
 {
-	u_int16_t i;
+	uint16_t i;
 	for (i = 0; i < BOARD_SIZE; i++)
 	{
 		b->board[i] = i + 1;
@@ -131,23 +131,23 @@ void init_player(struct GameStateVariables* state, struct Board* b, struct Playe
 
 struct Entity* generate_entities()
 {
-	u_int16_t i;
+	uint16_t i;
 	struct Entity* entities = malloc(sizeof(struct Entity) * (N_ENTITIES));
 	for (i = 0; i < N_ENTITIES; i++)
 	{
 		// Snakes
 		if (i % 2 == 0)
 		{
-			u_int32_t bottom = rand() % (BOARD_SIZE / 2);
-			u_int32_t top = rand() % (BOARD_SIZE / 2) + (BOARD_SIZE / 2); 
+			uint32_t bottom = rand() % (BOARD_SIZE / 2);
+			uint32_t top = rand() % (BOARD_SIZE / 2) + (BOARD_SIZE / 2); 
 			(entities + i)->bottom = bottom;
 			(entities + i)->top = top;
 		}
 		// Ladders
 		else
 		{
-			u_int32_t bottom = rand() % (BOARD_SIZE / 2);
-			u_int32_t top = rand() % (BOARD_SIZE / 2) + (BOARD_SIZE / 2); 
+			uint32_t bottom = rand() % (BOARD_SIZE / 2);
+			uint32_t top = rand() % (BOARD_SIZE / 2) + (BOARD_SIZE / 2); 
 			(entities + i)->bottom = bottom;
 			(entities + i)->top = top;
 		}
@@ -156,7 +156,7 @@ struct Entity* generate_entities()
 	return entities;
 }
 
-u_int8_t exists_val_q(const int val, int* arr, const size_t size)
+uint8_t exists_val_q(const int val, int* arr, const size_t size)
 {
     int i;
     for (i = 0; i < size; i++) 
