@@ -7,7 +7,7 @@ SOURCES = $(wildcard $(SRC)/*.c)
 OBJECTS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SOURCES))
 EXECUTABLE = app
 
-all: create_obj $(OBJECTS) app
+all: create_obj $(OBJECTS) $(EXECUTABLE)
 
 create_obj: 
 	mkdir -p $(OBJ)
@@ -15,8 +15,8 @@ create_obj:
 $(OBJ)/%.o: $(SRC)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-app: $(OBJECTS)
-	$(CC) $^ -o $(EXECUTABLE)
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $^ -o $@
 
 clean:
 	rm -rf $(OBJ) app
