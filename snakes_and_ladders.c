@@ -51,8 +51,8 @@ void play()
 			printf("Rolling dice...\n");
 			uint16_t die_number = roll_dice();
 			printf("Player %d rolled: %hu\n", (i + 1), die_number);
-			move(die_number, p, e);
-			printf("Player %d Moved to %u.\n", (i + 1), (p + i)->position);
+			move(die_number, (p + i), e);
+			printf("Player %d Moved to %u.\n\n", (i + 1), (p + i)->position);
 		}
 		printf("---------------------------------------------");
 		printf("\n\n");
@@ -63,12 +63,12 @@ void play()
 	return;
 }
 
-u_int8_t game_ended_q(struct GameStateVariables* state, struct Board* b, struct Player* p)
+uint8_t game_ended_q(struct GameStateVariables* state, struct Board* b, struct Player* p)
 {
 	uint16_t i;
 	for (i = 0; i < state->n_players; i++)
 	{
-		if ((p + i)->position == b->board[BOARD_SIZE - 1])
+		if ((p + i)->position >= b->board[BOARD_SIZE - 1])
 		{
 			printf("Player %u won!\n", (i + 1));
 			return 1;
@@ -77,7 +77,7 @@ u_int8_t game_ended_q(struct GameStateVariables* state, struct Board* b, struct 
 	return 0;
 }
 
-u_int16_t roll_dice()
+uint16_t roll_dice()
 {
 	return rand() % 6 + 1;
 }
