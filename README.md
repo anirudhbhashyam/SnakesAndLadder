@@ -10,3 +10,7 @@ cd SnakesAndLadders
 make
 ./app
 ```
+To cleanup use:
+```
+make clean
+```
