@@ -1,19 +1,24 @@
 CC = gcc
-CFLAGS = -Wall
-OBJECTS = snakes_and_ladders.o main.o
+SRC = src
+OBJ = obj
+INC = include
+CFLAGS = -Wall -I$(INC)
+SOURCES = $(wildcard $(SRC)/*.c)
+OBJECTS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SOURCES))
+EXECUTABLE = app
 
-all: snl main app
+all: create_obj $(OBJECTS) app
 
-snl: snakes_and_ladders.c snakes_and_ladders.h
-	$(CC) $(CFLAGS) -c snakes_and_ladders.c
+create_obj: 
+	mkdir -p $(OBJ)
 
-main: main.c snakes_and_ladders.h
-	$(CC) $(CFLAGS) -c main.c
+$(OBJ)/%.o: $(SRC)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-app:
-	$(CC) $(OBJECTS) -o app
+app: $(OBJECTS)
+	$(CC) $^ -o $(EXECUTABLE)
 
 clean:
-	rm -rf $(OBJECTS) app 
+	rm -rf $(OBJ) app
 
 
