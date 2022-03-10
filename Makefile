@@ -19,6 +19,6 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $^ -o $@
 
 clean:
-	rm -rf $(OBJ) app
+	rm -rf $(OBJ) $(EXECUTABLE)
 
 
