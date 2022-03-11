@@ -36,7 +36,7 @@ struct GameStateVariables
 };
 
 void play();
-u_int8_t game_ended_q(struct GameStateVariables*, struct Board*, struct Player*);
+uint8_t game_ended_q(struct GameStateVariables*, struct Board*, struct Player*);
 uint16_t roll_dice();
 void move(uint16_t rolled, struct Player*, struct Entity*);
 void init_board(struct Board*);
