@@ -1,0 +1,9 @@
+name: build-action
+on: [push]
+jobs:
+    check-build:
+        runs-onL ubuntu-latest
+        steps:
+            with: 
+                cmake-version: "3.20.2"
+            - run: make
