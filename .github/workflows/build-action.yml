@@ -4,6 +4,9 @@ jobs:
   check-build:
     runs-on: ubuntu-latest
     steps:
-      with: 
-        cmake-version: "3.20.2"
+      # with: 
+      #   cmake-version: "3.20.2"
+      #   make-version: "" 
+      - run: pip install cmake
+      - run: pip install make
       - run: make
