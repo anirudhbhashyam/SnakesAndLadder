@@ -3,16 +3,15 @@
 # Workflows
 ![Build](https://github.com/anirudhbhashyam/SnakesAndLadders/actions/workflows/build-action.yml/badge.svg)
 # SNAKES AND LADDERS 
-`Still in development.` 
 
 # Usage
 ```
-git clone --recursive https://github.com/anirudhbhashyam/SnakesAndLadders
-cd SnakesAndLadders
-make
-./app
+$ git clone --recursive https://github.com/anirudhbhashyam/SnakesAndLadders
+$ cd SnakesAndLadders
+$ make
+$ ./app
 ```
 To cleanup use:
 ```
-make clean
+$ make clean
 ```
